@@ -5,11 +5,16 @@ main module extracting mp3
 
 input:
 	-yt_url: youtube link with music wanted 
+	-save: destination directory
+
+ouputs:
+
+	-mp3 file in specified directory
 
 """
 
 
-from __future__ import unicode_literals # 2.7 compatablity 
+from __future__ import unicode_literals 
 import youtube_dl
 
 
@@ -34,10 +39,10 @@ def urls_from_file(txtfile):
 class Download(object):
 
 
-	def __init__(self, yt_url, outdir):
+	def __init__(self, yt_url, save):
 
 		self.link = yt_url
-
+	
 		self.opts = {
 			'format': 'bestaudio/best',
 			'postprocessors': [{
@@ -46,8 +51,8 @@ class Download(object):
 				'preferredquality': '192'
 					}],
 			'progress_hooks': [myhook],
-			'forcefilename': True
-			'outtmpl': outdir + '/%(title)s.%(ext)s'
+			'forcefilename': True,
+			'outtmpl': save + '%(title)s.%(ext)s'
 			}
 
 	def info(self):
@@ -57,13 +62,12 @@ class Download(object):
 		
 		"""
 		with youtube_dl.YoutubeDL(self.opts) as ydl:
-			res = ydl.extract_info(self.link, download=False)
-
-			return res
+		
+			return ydl.extract_info(self.link, download=False)
 
 
 	def download(self):
-
+ 
 
 		"""
 		Download mp3
@@ -71,7 +75,9 @@ class Download(object):
 		"""
 
 		with youtube_dl.YoutubeDL(self.opts) as ydl:
-	    		ydl.download([self.link])
+			ydl.download([self.link])
+		
+		print('-'*100)
 
 
 if __name__ == '__main__':
@@ -82,11 +88,10 @@ if __name__ == '__main__':
 	
 	for link in testlinks:
 
-		dl = Download(link, '/home/natay/Desktop/mymusic')
+		Download(link, '/home/natay/Desktop/mymusic/').download()
+		
 
-		print(dl.download()) # print info
- 
-		break
+
 
 		
 		
