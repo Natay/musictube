@@ -19,16 +19,7 @@ import youtube_dl
 def myhook(e):
 	
 	if e['status'] == 'finished':
-		print('Download complete, converting to mp3')
-
-
-
-
-def save(mp3, path):
-	# last thing to work on 
-	return NotImplementedError 
-
-
+		print('DOWNLOAD COMPLETE, converting to mp3')
 
 
 
@@ -53,7 +44,7 @@ class Download(object):
 	def info(self):
 
 		"""
-		Extract page info without downloading link 
+		Extract page info without downloading link ( bit of an overkill )
 		
 		"""
 		with youtube_dl.YoutubeDL(self.opts) as ydl:
@@ -85,7 +76,7 @@ if __name__ == '__main__':
 		dl = Download(link)
 
 		print(dl.download()) # print info 
-		break
+
 		
 		
 
