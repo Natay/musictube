@@ -7,7 +7,7 @@ input:
 	-yt_url: youtube link with music wanted 
 
 """
-
+#TODO: change destination path
 
 
 from __future__ import unicode_literals # 2.7 compatablity 
@@ -22,6 +22,15 @@ def myhook(e):
 		print('DOWNLOAD COMPLETE, converting to mp3')
 
 
+
+def urls_from_file(txtfile):
+
+	with open(txtfile, 'r') as links:
+
+		for one_link in links:
+			yield one_link
+
+ 
 
 class Download(object):
 
@@ -75,7 +84,9 @@ if __name__ == '__main__':
 
 		dl = Download(link)
 
-		print(dl.download()) # print info 
+		print(dl.download()) # print info
+ 
+		break
 
 		
 		
