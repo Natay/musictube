@@ -55,21 +55,22 @@ class Download(object):
 		Extract page info without downloading link 
 		
 		"""
+		with youtube_dl.YoutubeDL(self.opts) as ydl:
+			res = ydl.extract_info(self.link, download=False)
 
-		return NotImplemented 
-
+			return res
 
 
 	def download(self):
 
 
 		"""
-		Download link given
+		Download mp3
 
 		"""
 
 		with youtube_dl.YoutubeDL(self.opts) as ydl:
-	    		ydl.download(['http://www.youtube.com/watch?v=BaW_jenozKc'])
+	    		ydl.download([self.link])
 
 
 if __name__ == '__main__':
@@ -82,7 +83,7 @@ if __name__ == '__main__':
 
 		dl = Download(link)
 
-		print(dl.info()) # print info 
+		print(dl.info()['title']) # print info 
 		
 		
 
