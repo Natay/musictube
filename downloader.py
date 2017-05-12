@@ -7,7 +7,6 @@ input:
 	-yt_url: youtube link with music wanted 
 
 """
-#TODO: change destination path
 
 
 from __future__ import unicode_literals # 2.7 compatablity 
@@ -35,7 +34,7 @@ def urls_from_file(txtfile):
 class Download(object):
 
 
-	def __init__(self, yt_url):
+	def __init__(self, yt_url, outdir):
 
 		self.link = yt_url
 
@@ -48,6 +47,7 @@ class Download(object):
 					}],
 			'progress_hooks': [myhook],
 			'forcefilename': True
+			'outtmpl': outdir + '/%(title)s.%(ext)s'
 			}
 
 	def info(self):
@@ -82,7 +82,7 @@ if __name__ == '__main__':
 	
 	for link in testlinks:
 
-		dl = Download(link)
+		dl = Download(link, '/home/natay/Desktop/mymusic')
 
 		print(dl.download()) # print info
  
