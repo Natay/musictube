@@ -47,6 +47,7 @@ class Download(object):
 				'preferredquality': '192'
 					}],
 			'progress_hooks': [myhook],
+			'forcefilename': True
 			}
 
 	def info(self):
@@ -83,7 +84,8 @@ if __name__ == '__main__':
 
 		dl = Download(link)
 
-		print(dl.info()['title']) # print info 
+		print(dl.download()) # print info 
+		break
 		
 		
 
