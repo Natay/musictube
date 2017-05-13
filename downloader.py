@@ -4,8 +4,8 @@
 main module extracting mp3
 
 input:
-	-yt_url: youtube link with music wanted 
-	-save: destination directory
+	-link: youtube link with music wanted 
+	-dest: destination directory
 
 ouputs:
 
@@ -15,8 +15,39 @@ ouputs:
 
 
 from __future__ import unicode_literals 
+import sys
+
 import youtube_dl
 
+
+
+def main():
+
+	dest = sys.argv[2]
+	urlfile = sys.argv[1]	
+	
+	links = urls_from_file(urlfile)
+	
+	if dest[-1] != '/': dest + '/'
+	print(1/0)
+
+
+	for link in links:
+		
+		download(link, dest)
+	
+
+
+OPTS = {
+	'format': 'bestaudio/best',
+	'postprocessors': [{
+			'key': 'FFmpegExtractAudio',
+			'preferredcodec': 'mp3',
+			'preferredquality': '192'
+			}],
+	'progress_hooks': [myhook],
+	'forcefilename': True,
+	}
 
 
 
@@ -24,7 +55,6 @@ def myhook(e):
 	
 	if e['status'] == 'finished':
 		print('DOWNLOAD COMPLETE, converting to mp3')
-
 
 
 def urls_from_file(txtfile):
@@ -35,82 +65,24 @@ def urls_from_file(txtfile):
 			yield one_link
 
  
+def download(link, dest):
 
-class Download(object):
-
-
-	def __init__(self, yt_url, save):
-
-		self.link = yt_url
+	global OPTS
 	
-		self.opts = {
-			'format': 'bestaudio/best',
-			'postprocessors': [{
-				'key': 'FFmpegExtractAudio',
-				'preferredcodec': 'mp3',
-				'preferredquality': '192'
-					}],
-			'progress_hooks': [myhook],
-			'forcefilename': True,
-			'outtmpl': save + '%(title)s.%(ext)s'
-			}
-
-	def info(self):
-
-		"""
-		Extract page info without downloading link ( bit of an overkill )
-		
-		"""
-		with youtube_dl.YoutubeDL(self.opts) as ydl:
-		
-			return ydl.extract_info(self.link, download=False)
+	OPTS['outtmpl'] = dest + '%(title)s.%(ext)s'
 
 
-	def download(self):
- 
+	with youtube_dl.YoutubeDL(OPTS) as ydl:
+		ydl.download([link])
 
-		"""
-		Download mp3
-
-		"""
-
-		with youtube_dl.YoutubeDL(self.opts) as ydl:
-			ydl.download([self.link])
-		
-		print('-'*100)
-
+	print('-'*100)
+	
+	
 
 if __name__ == '__main__':
-	
-	
 
-	links = urls_from_file('/home/natay/Desktop/mymusic/links.txt')
-	
-	for link in links:
+	main()
 		
-
-		Download(link, '/home/natay/Desktop/mymusic/').download()
-		
-
-
-
-		
-		
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
