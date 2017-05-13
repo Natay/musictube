@@ -82,11 +82,12 @@ class Download(object):
 
 if __name__ == '__main__':
 	
-	testlinks = ['https://www.youtube.com/watch?v=vxa-RHeOc0w',
-		    'https://www.youtube.com/watch?v=qkxEKumTj08' ]
-
 	
-	for link in testlinks:
+
+	links = urls_from_file('/home/natay/Desktop/mymusic/links.txt')
+	
+	for link in links:
+		
 
 		Download(link, '/home/natay/Desktop/mymusic/').download()
 		
