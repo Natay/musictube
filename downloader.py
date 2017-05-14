@@ -19,25 +19,6 @@ import sys
 
 import youtube_dl
 
-
-
-def main():
-
-	dest = sys.argv[2]
-	urlfile = sys.argv[1]	
-	
-	links = urls_from_file(urlfile)
-	
-	if dest[-1] != '/': dest + '/'
-	print(1/0)
-
-
-	for link in links:
-		
-		download(link, dest)
-	
-
-
 OPTS = {
 	'format': 'bestaudio/best',
 	'postprocessors': [{
@@ -45,11 +26,22 @@ OPTS = {
 			'preferredcodec': 'mp3',
 			'preferredquality': '192'
 			}],
-	'progress_hooks': [myhook],
 	'forcefilename': True,
 	}
 
 
+def main():
+	
+	# hardcoded destination and links files 
+	dest = '/home/natay/Desktop/mymusic/'
+	urlfile = dest + 'links.txt'
+
+	links = urls_from_file(urlfile)
+
+	for link in links:
+		
+		download(link, dest)
+	
 
 def myhook(e):
 	
@@ -70,6 +62,7 @@ def download(link, dest):
 	global OPTS
 	
 	OPTS['outtmpl'] = dest + '%(title)s.%(ext)s'
+	OPTS['progress_hooks']= [myhook]
 
 
 	with youtube_dl.YoutubeDL(OPTS) as ydl:
