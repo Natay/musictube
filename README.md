@@ -4,10 +4,10 @@ I want to download music from youtube, figured i can make a gui/api to make it e
 
 The API works with a text file full of youtube links that are looked at and downloaded one at a time.
 
-using youtube_dl module to do the heavy lifting; I'm just making it look 'preety'
+using youtube_dl module to do the heavy lifting; I'm just make a wrapper around that to make my life simple
 
-This (musictube) does not support playlists for now, just individual links 
+does not support playlists for now, just individual links 
 
-This is meant for personal use so there I haven't tested on other machines ( works on linux ).
+meant for personal use so there I haven't tested on other machines ( works on linux ).
 
 
