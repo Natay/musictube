@@ -8,6 +8,6 @@ using youtube_dl module to do the heavy lifting; I'm just make a wrapper around 
 
 does not support playlists for now, just individual links 
 
-meant for personal use so there I haven't tested on other machines ( works on linux ).
+meant for personal use so I haven't tested on other machines ( works on linux ).
 
 
