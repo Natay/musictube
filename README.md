@@ -1,4 +1,5 @@
 # musictube
+python 3.6
 
 I want to download music from youtube, figured i can make a gui/api to make it easier.
 
