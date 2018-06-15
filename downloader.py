@@ -33,6 +33,7 @@ OPTS = {
 def main():
 
 	from argparse import ArgumentParser
+	import os
 
 	parser = ArgumentParser()
 	parser.add_argument("links", type=str, help="file with links")
@@ -41,10 +42,12 @@ def main():
 	args = parser.parse_args()
 
 	links = urls_from_file(args.links)
+	# Add a trailing "/" or "\ if it is there
+	destdir = args.dest_dir if args.dest_dir.endswith(os.sep) else args.dest_dir + os.sep
 
 	for link in links:
 
-		download(link, args.dest_dir)
+		download(link, destdir)
 
 
 def myhook(e):
