@@ -34,6 +34,7 @@ def main():
 
 	from argparse import ArgumentParser
 	import os
+	import time
 
 	parser = ArgumentParser()
 	parser.add_argument("links", type=str, help="file with links")
@@ -42,12 +43,20 @@ def main():
 	args = parser.parse_args()
 
 	links = urls_from_file(args.links)
-	# Add a trailing "/" or "\ if it is there
-	destdir = args.dest_dir if args.dest_dir.endswith(os.sep) else args.dest_dir + os.sep
+	
+	# Make a new dir, way easier to import into library this way
+	now = time.time()
+	destpath = os.path.join(args.dest_dir, f"{now}")
+
+	# Add a trailing "/" or "\" if it is there
+	destpath = destpath if destpath.endswith(os.sep) else destpath + os.sep
+
+	os.makedirs(destpath, exist_ok=True)
+
 
 	for link in links:
 
-		download(link, destdir)
+		download(link, destpath)
 
 
 def myhook(e):
